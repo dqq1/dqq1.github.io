@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.3" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.3">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.3">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.3" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="git及github基本使用,学习," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="分支问题多任务并行开发的时候，避免不了，各个任务之间相互影响，我们也可以采用备份文件夹的方式，来避免影响，但是这种方式不可取，因为一旦任务过多，文件夹数量也会随之增多不容易维护，最终的代码合并，也会出现问题 分支git中有个内容，叫做分支分支作用：相当于备份代码使用场景：每次只要有新任务时就创建分支 分支使用步骤 创建分支 1git branch 分支名称  切换分支 12git checkout">
+<meta name="keywords" content="git及github基本使用,学习">
+<meta property="og:type" content="article">
+<meta property="og:title" content="js面向对象">
+<meta property="og:url" content="http://yoursite.com/2015/10/08/js面向对象/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="分支问题多任务并行开发的时候，避免不了，各个任务之间相互影响，我们也可以采用备份文件夹的方式，来避免影响，但是这种方式不可取，因为一旦任务过多，文件夹数量也会随之增多不容易维护，最终的代码合并，也会出现问题 分支git中有个内容，叫做分支分支作用：相当于备份代码使用场景：每次只要有新任务时就创建分支 分支使用步骤 创建分支 1git branch 分支名称  切换分支 12git checkout">
+<meta property="og:updated_time" content="2017-10-08T07:13:23.866Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="js面向对象">
+<meta name="twitter:description" content="分支问题多任务并行开发的时候，避免不了，各个任务之间相互影响，我们也可以采用备份文件夹的方式，来避免影响，但是这种方式不可取，因为一旦任务过多，文件夹数量也会随之增多不容易维护，最终的代码合并，也会出现问题 分支git中有个内容，叫做分支分支作用：相当于备份代码使用场景：每次只要有新任务时就创建分支 分支使用步骤 创建分支 1git branch 分支名称  切换分支 12git checkout">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.3',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2015/10/08/js面向对象/"/>
+
+
+
+
+
+  <title>js面向对象 | Hexo</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">Hexo</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Accueil
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2015/10/08/js面向对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="John Doe">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">js面向对象</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posté le</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2015-10-08T10:19:36+08:00">
+                2015-10-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">学习笔记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h1><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>多任务并行开发的时候，避免不了，各个任务之间相互影响，我们也可以采用备份文件夹的方式，来避免影响，但是这种方式不可取，因为一旦任务过多，文件夹数量也会随之增多不容易维护，最终的代码合并，也会出现问题</p>
+<h2 id="分支-1"><a href="#分支-1" class="headerlink" title="分支"></a>分支</h2><p>git中有个内容，叫做分支<br>分支作用：相当于备份代码<br>使用场景：每次只要有新任务时就创建分支</p>
+<h2 id="分支使用步骤"><a href="#分支使用步骤" class="headerlink" title="分支使用步骤"></a>分支使用步骤</h2><ol>
+<li><p>创建分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch 分支名称</div></pre></td></tr></table></figure>
+</li>
+<li><p>切换分支</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git checkout 分支名称</div><div class="line">git checkout master</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>3.合并分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git merge 要合并的分支</div></pre></td></tr></table></figure></p>
+<ol>
+<li>删除分支<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch -d 分支名称</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>5.创建并切换分支<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout -b 分支名称</div></pre></td></tr></table></figure></p>
+<h2 id="冲突问题"><a href="#冲突问题" class="headerlink" title="冲突问题"></a>冲突问题</h2><p>分支A中创建了文件xx.txt,分支B中也创建了xx.txt,那么git就会发信啊，有两个相同的文件，这个时候就会产生冲突，冲突产生后就会合并失败，需要先解决冲突之后，然后再次提交，才能正常合并。</p>
+<h2 id="解决冲突"><a href="#解决冲突" class="headerlink" title="解决冲突"></a>解决冲突</h2><p>冲突产生后，git会告知哪个文件冲突了，然后在文件中，会用&gt;&gt;&gt;&gt; ==== &lt;&lt;&lt;&lt;这样的方式将冲突内容标识出来，我们只需要将标记删除，然后将代码改成自己想要的结果，再次add commit即可！</p>
+<h2 id="master分支"><a href="#master分支" class="headerlink" title="master分支"></a>master分支</h2><p>这个分支，是git默认自动创建的，但不是在<code>git init</code>之后就会有的，而是在第一次提交完成之后，才会默认创建出来的这个分支</p>
+<h2 id="分支切换注意点"><a href="#分支切换注意点" class="headerlink" title="分支切换注意点"></a>分支切换注意点</h2><p>必须先将所有的更改，做一次提交之后，再切换分支！！！</p>
+<h2 id="回滚操作的恢复"><a href="#回滚操作的恢复" class="headerlink" title="回滚操作的恢复"></a>回滚操作的恢复</h2><ol>
+<li><p>查看所有的操作日志</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git log -g</div></pre></td></tr></table></figure>
+</li>
+<li><p>创建新的分支，将要恢复的版本号作为最后一个参数</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git branch 分支名 版本号</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="如何把已经提交的commit-从一个分支放到另一个分支"><a href="#如何把已经提交的commit-从一个分支放到另一个分支" class="headerlink" title="如何把已经提交的commit, 从一个分支放到另一个分支"></a>如何把已经提交的commit, 从一个分支放到另一个分支</h2><p> 在本地 master 分支上做了一个commit ( 38361a68138140827b31b72f8bbfd88b3705d77a ) ， 如何把它放到 本地 old_cc 分支上</p>
+<ol>
+<li><p>获取master上commit的版本号</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git log (找到需要放到old_cc分支上的那次提交版本号)</div></pre></td></tr></table></figure>
+</li>
+<li><p>切换到old_cc 分支上</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git checkout old_cc</div></pre></td></tr></table></figure>
+<p>3.进行内容更新</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git cherry-pick commit(更新的版本号)</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="git-cherry-pick-命令功能"><a href="#git-cherry-pick-命令功能" class="headerlink" title="git cherry-pick 命令功能"></a>git cherry-pick 命令功能</h2><p> git cherry-pick可以选择某一个分支中的一个或几个commit(s)来进行操作。例如，假设我们有个稳定版本的分支，叫v2.0，另外还有个开发版本的分支v3.0，我们不能直接把两个分支合并，这样会导致稳定版本混乱，但是又想增加一个v3.0中的功能到v2.0中，这里就可以使用cherry-pick了。</p>
+<h1 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h1><h2 id="git"><a href="#git" class="headerlink" title="git"></a>git</h2><p> git是一个分布式的 版本控制工具，特点，就是版本库存放在本地</p>
+<h2 id="远程仓库的作用"><a href="#远程仓库的作用" class="headerlink" title="远程仓库的作用"></a>远程仓库的作用</h2><p> 就是共享版本库   共享代码</p>
+<h2 id="远程库的创建"><a href="#远程库的创建" class="headerlink" title="远程库的创建"></a>远程库的创建</h2><p> <strong><em>远程仓库其实就是一个裸仓库</em></strong></p>
+<h2 id="裸仓库"><a href="#裸仓库" class="headerlink" title="裸仓库"></a>裸仓库</h2><p> 创建裸仓库<br> <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git init --bare</div></pre></td></tr></table></figure></p>
+<p>裸仓库创建完成后，就不需要做任何操作了，在裸仓库中不能进行任何的开发操作</p>
+<h2 id="远程仓库的操作命令"><a href="#远程仓库的操作命令" class="headerlink" title="远程仓库的操作命令"></a>远程仓库的操作命令</h2><ol>
+<li>给远程仓库推送内容<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">git push 远程仓库地址 本地分支名称：远程分支名称</div><div class="line"></div><div class="line">如果本地分支名称和远程分支名称相同，那么可以缩写如下：</div><div class="line">git push xxx.xxx.git master:master</div><div class="line">git push xxx.xxx.git master</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>2.获取远程仓库中的所有内容<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">git clone 远程仓库地址 文件夹名称</div><div class="line">文件夹名称也可以不用写，默认使用的就是远程仓库的文件夹名称！！</div></pre></td></tr></table></figure></p>
+<ol>
+<li>获取远程仓库中更新了的内容<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull 远程仓库地址 分支名称</div></pre></td></tr></table></figure>
+</li>
+</ol>
+<h2 id="注意"><a href="#注意" class="headerlink" title="注意"></a>注意</h2><p>只有在远程仓库中从未推送过任何内容的时候，我们才能随意向里面推送任何内容</p>
+<p>但是，一旦已经推送过一次内容了，那么之后就不能随便的向远程仓库推送内容了，能推送的，只能是和第一次推送相关的修改的内容！！</p>
+<p><strong>每次在向远程仓库中推送新内容的时候，必须先进行一次获取更新内容的操作（pull），否则可能推送失败！！！</strong></p>
+<h2 id="github"><a href="#github" class="headerlink" title="github"></a>github</h2><p>全球最大的开放源代码托管平台</p>
+<p>github其实就是一个远程仓库</p>
+<h1 id="远程仓库地址别名"><a href="#远程仓库地址别名" class="headerlink" title="远程仓库地址别名"></a>远程仓库地址别名</h1><p>因为远程仓库地址的连接过长，不容易记忆，所以每次在向服务器提交新内容的时候，都需要重新去查看依次远程仓库的地址，非常麻烦</p>
+<p>我们可以为每个远程仓库地址，设置一个简单的别名</p>
+<h2 id="设置远程地址的别名"><a href="#设置远程地址的别名" class="headerlink" title="设置远程地址的别名"></a>设置远程地址的别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote add 别名  远程仓库地址</div></pre></td></tr></table></figure>
+<h2 id="查看所有的远程地址别名"><a href="#查看所有的远程地址别名" class="headerlink" title="查看所有的远程地址别名"></a>查看所有的远程地址别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote</div></pre></td></tr></table></figure>
+<h2 id="删除别名"><a href="#删除别名" class="headerlink" title="删除别名"></a>删除别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote remove 别名</div></pre></td></tr></table></figure>
+<h2 id="重命名别名"><a href="#重命名别名" class="headerlink" title="重命名别名"></a>重命名别名</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote rename 旧别名 新别名</div></pre></td></tr></table></figure>
+<h2 id="查看别名对应的地址"><a href="#查看别名对应的地址" class="headerlink" title="查看别名对应的地址"></a>查看别名对应的地址</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote get-url 别名</div></pre></td></tr></table></figure>
+<h2 id="设置对应别名的地址"><a href="#设置对应别名的地址" class="headerlink" title="设置对应别名的地址"></a>设置对应别名的地址</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git remote set-url 别名</div></pre></td></tr></table></figure>
+<h2 id="origin别名"><a href="#origin别名" class="headerlink" title="origin别名"></a>origin别名</h2><p>如果是直接通过<code>git init</code>创建的仓库，那么这个仓库中是不会有origin的别名的！！！</p>
+<p>如果仓库是通过<code>git clone</code>从远程仓库中获取的内容，那么这个仓库中会自动添加一个<code>origin</code>的别名，指向的地址其实就是当时<code>clone</code>的远程仓库的地址</p>
+<h1 id="ssh"><a href="#ssh" class="headerlink" title="ssh"></a>ssh</h1><h2 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h2><p>用作客户端和服务器通信的时候的一个安全的协议，全称是Secure Shell，一般用作服务器的远程管理</p>
+<h2 id="ssh工具"><a href="#ssh工具" class="headerlink" title="ssh工具"></a>ssh工具</h2><p>在linux系统下，提供了一个工具，ssh，这个工具可以通过ssh协议连接服务器进行远程管理</p>
+<p>使用实例<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh root@riksy.love</div></pre></td></tr></table></figure></p>
+<h2 id="ssh协议格式"><a href="#ssh协议格式" class="headerlink" title="ssh协议格式"></a>ssh协议格式</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">用户名@服务器地址</div></pre></td></tr></table></figure>
+<h2 id="公钥以及私钥的生成"><a href="#公钥以及私钥的生成" class="headerlink" title="公钥以及私钥的生成"></a>公钥以及私钥的生成</h2><ol>
+<li>通过<code>ssh-keygen</code>命令就可以生成公钥和私钥</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa</div></pre></td></tr></table></figure>
+<p>敲完这个命令后，一定要一路敲回车，直到看到冒泡泡为止</p>
+<h2 id="服务器免密登陆步骤"><a href="#服务器免密登陆步骤" class="headerlink" title="服务器免密登陆步骤"></a>服务器免密登陆步骤</h2><ol>
+<li>生成公钥以及私钥</li>
+<li>在服务器的 ~/.ssh/autorized_keys中将生成公钥中的所有 的内容追加到里面去</li>
+<li>再次登录服务器就不需要密码了！！</li>
+</ol>
+<h1 id="github免密"><a href="#github免密" class="headerlink" title="github免密"></a>github免密</h1><h2 id="github-1"><a href="#github-1" class="headerlink" title="github"></a>github</h2><p>提供了两种推送和获取代码的协议<br>1.https<br>2.ssh</p>
+<h2 id="免密设置步骤"><a href="#免密设置步骤" class="headerlink" title="免密设置步骤"></a>免密设置步骤</h2><ol>
+<li><p>如果从未生成过秘钥<br>  需要执行<code>ssh-keygen -t rsa</code>生成秘钥文件（在用户根目录下.ssh目录中，有个id_rsa.pub文件）</p>
+</li>
+<li><p>打开github，点击个人头像，选择下面的settings</p>
+</li>
+<li><p>点击左边栏中的 SSH and GPG keys</p>
+</li>
+<li><p>点击页面右上方的New SSH Key</p>
+</li>
+<li><p>打开自己的公钥文件（用户根目录下.ssh目录中，有个id_rsa.pub文件）复制文件中的所有的内容</p>
+</li>
+<li><p>将复制好的内容粘贴到 key 文本框中</p>
+</li>
+<li><p>点击Add SSH key 按钮</p>
+</li>
+<li><p>以后在本机使用github的时候，直接使用ssh协议的连接，就可以实现免密功能了！！！</p>
+</li>
+</ol>
+<h2 id="只有使用ssh协议的连接，才能够实现免密的push，pull"><a href="#只有使用ssh协议的连接，才能够实现免密的push，pull" class="headerlink" title="只有使用ssh协议的连接，才能够实现免密的push，pull"></a>只有使用ssh协议的连接，才能够实现免密的push，pull</h2><h1 id="静态页面托管"><a href="#静态页面托管" class="headerlink" title="静态页面托管"></a>静态页面托管</h1><p>github给每个账号提供了一个项目作为静态页面托管的机会！</p>
+<p>我们可以将自己写好的静态页面全部放到github上去，通过指定的连接就能够访问到页面效果！！</p>
+<h2 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h2><ol>
+<li><p>创建新的项目</p>
+</li>
+<li><p>项目名称必须是 ： 用户名.github.io</p>
+</li>
+<li><p>将自己的写好的项目直接推送到这个github仓库中</p>
+</li>
+<li><p>通过 用户名.github.io 地址 就可以直接访问页面了！！</p>
+</li>
+</ol>
+<h1 id="使用hexo-github搭建个人微博"><a href="#使用hexo-github搭建个人微博" class="headerlink" title="使用hexo + github搭建个人微博"></a>使用hexo + github搭建个人微博</h1><ol>
+<li><p>需要安装node.js</p>
+</li>
+<li><p>通过npm下载hexo</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install hexo-cli -g</div></pre></td></tr></table></figure>
+</li>
+<li><p>上面一步完成之后，就有一个命令可以用了 hexo</p>
+</li>
+<li><p>创建一个新的文件夹</p>
+</li>
+<li><p>cd进入这个文件夹</p>
+</li>
+<li><p>执行 <code>hexo init</code></p>
+</li>
+<li><p>执行 <code>hexo s</code>  在本地可以进行预览（复制地址到浏览器）</p>
+</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/git及github基本使用/" rel="tag"># git及github基本使用</a>
+          
+            <a href="/tags/学习/" rel="tag"># 学习</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table Des Matières
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Ensemble
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">John Doe</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">articles</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          <div class="links-of-author motion-element">
+            
+          </div>
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#分支"><span class="nav-number">1.</span> <span class="nav-text">分支</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">1.1.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支-1"><span class="nav-number">1.2.</span> <span class="nav-text">分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支使用步骤"><span class="nav-number">1.3.</span> <span class="nav-text">分支使用步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#冲突问题"><span class="nav-number">1.4.</span> <span class="nav-text">冲突问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#解决冲突"><span class="nav-number">1.5.</span> <span class="nav-text">解决冲突</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#master分支"><span class="nav-number">1.6.</span> <span class="nav-text">master分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#分支切换注意点"><span class="nav-number">1.7.</span> <span class="nav-text">分支切换注意点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#回滚操作的恢复"><span class="nav-number">1.8.</span> <span class="nav-text">回滚操作的恢复</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#如何把已经提交的commit-从一个分支放到另一个分支"><span class="nav-number">1.9.</span> <span class="nav-text">如何把已经提交的commit, 从一个分支放到另一个分支</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#git-cherry-pick-命令功能"><span class="nav-number">1.10.</span> <span class="nav-text">git cherry-pick 命令功能</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程仓库"><span class="nav-number">2.</span> <span class="nav-text">远程仓库</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#git"><span class="nav-number">2.1.</span> <span class="nav-text">git</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库的作用"><span class="nav-number">2.2.</span> <span class="nav-text">远程仓库的作用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程库的创建"><span class="nav-number">2.3.</span> <span class="nav-text">远程库的创建</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#裸仓库"><span class="nav-number">2.4.</span> <span class="nav-text">裸仓库</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#远程仓库的操作命令"><span class="nav-number">2.5.</span> <span class="nav-text">远程仓库的操作命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#注意"><span class="nav-number">2.6.</span> <span class="nav-text">注意</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#github"><span class="nav-number">2.7.</span> <span class="nav-text">github</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#远程仓库地址别名"><span class="nav-number">3.</span> <span class="nav-text">远程仓库地址别名</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#设置远程地址的别名"><span class="nav-number">3.1.</span> <span class="nav-text">设置远程地址的别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看所有的远程地址别名"><span class="nav-number">3.2.</span> <span class="nav-text">查看所有的远程地址别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#删除别名"><span class="nav-number">3.3.</span> <span class="nav-text">删除别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重命名别名"><span class="nav-number">3.4.</span> <span class="nav-text">重命名别名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#查看别名对应的地址"><span class="nav-number">3.5.</span> <span class="nav-text">查看别名对应的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#设置对应别名的地址"><span class="nav-number">3.6.</span> <span class="nav-text">设置对应别名的地址</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#origin别名"><span class="nav-number">3.7.</span> <span class="nav-text">origin别名</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ssh"><span class="nav-number">4.</span> <span class="nav-text">ssh</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#概念"><span class="nav-number">4.1.</span> <span class="nav-text">概念</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh工具"><span class="nav-number">4.2.</span> <span class="nav-text">ssh工具</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ssh协议格式"><span class="nav-number">4.3.</span> <span class="nav-text">ssh协议格式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#公钥以及私钥的生成"><span class="nav-number">4.4.</span> <span class="nav-text">公钥以及私钥的生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#服务器免密登陆步骤"><span class="nav-number">4.5.</span> <span class="nav-text">服务器免密登陆步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#github免密"><span class="nav-number">5.</span> <span class="nav-text">github免密</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#github-1"><span class="nav-number">5.1.</span> <span class="nav-text">github</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#免密设置步骤"><span class="nav-number">5.2.</span> <span class="nav-text">免密设置步骤</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#只有使用ssh协议的连接，才能够实现免密的push，pull"><span class="nav-number">5.3.</span> <span class="nav-text">只有使用ssh协议的连接，才能够实现免密的push，pull</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#静态页面托管"><span class="nav-number">6.</span> <span class="nav-text">静态页面托管</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#步骤"><span class="nav-number">6.1.</span> <span class="nav-text">步骤</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#使用hexo-github搭建个人微博"><span class="nav-number">7.</span> <span class="nav-text">使用hexo + github搭建个人微博</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">John Doe</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Thème &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.3</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.3"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.3"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.3"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.3"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
